@@ -183,7 +183,7 @@
   },
   "codegenConfig": {
     "name": "RNDeviceBrightnessNewSpec",
-    "type": "all",
+    "type": "modules",
     "jsSrcsDir": "src",
     "outputDir": {
       "ios": "ios/generated",
@@ -191,10 +191,11 @@
     },
     "android": {
       "javaPackageName": "com.devicebrightnessnew"
-    }
+    },
+    "includesGeneratedCode": true
   },
   "create-react-native-library": {
-    "type": "module-new",
+    "type": "module-mixed",
     "languages": "kotlin-objc",
     "version": "0.41.2"
   }
