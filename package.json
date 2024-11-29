@@ -1,6 +1,6 @@
 {
   "name": "@jiroscripts/react-native-device-brightness",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Device brightness package for Android and Ios",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
