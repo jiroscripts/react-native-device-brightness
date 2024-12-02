@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Appearance } from 'react-native';
 import { useEffect, useState } from 'react';
 import {
   getBrightness,
@@ -14,7 +14,7 @@ export default function App() {
   }, []);
 
   function _setFullBrightness() {
-    return setBrightness(0.5);
+    return setBrightness(1);
   }
 
   return (
@@ -35,7 +35,7 @@ export default function App() {
         </Pressable>
       </View>
 
-      <Text>Current brightness: {currentBrightness}</Text>
+      <Text style={styles.text}>Current brightness: {currentBrightness}</Text>
     </View>
   );
 }
@@ -54,5 +54,8 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: 'grey',
     alignItems: 'center',
+  },
+  text: {
+    color: Appearance.getColorScheme() === 'light' ? 'black' : 'white',
   },
 });
