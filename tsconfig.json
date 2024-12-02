@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-device-brightness-new": ["./src/index"]
+      "@jiroscripts/react-native-device-brightness": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

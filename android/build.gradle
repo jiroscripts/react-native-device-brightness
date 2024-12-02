@@ -1,6 +1,6 @@
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["DeviceBrightnessNew_kotlinVersion"]
+  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["ReactNativeDeviceBrightness_kotlinVersion"]
 
   repositories {
     google()
@@ -31,11 +31,11 @@ if (isNewArchitectureEnabled()) {
 }
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["DeviceBrightnessNew_" + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["ReactNativeDeviceBrightness_" + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["DeviceBrightnessNew_" + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["ReactNativeDeviceBrightness_" + name]).toInteger()
 }
 
 def supportsNamespace() {
@@ -49,7 +49,7 @@ def supportsNamespace() {
 
 android {
   if (supportsNamespace()) {
-    namespace "com.devicebrightnessnew"
+    namespace "com.jiroscripts.reactnativedevicebrightness"
 
     sourceSets {
       main {
@@ -89,10 +89,14 @@ android {
   sourceSets {
     main {
       if (isNewArchitectureEnabled()) {
-          java.srcDirs += [
-            "generated/java",
-            "generated/jni"
-          ]
+        java.srcDirs += [
+          "src/newarch",
+          // Codegen specs
+          "generated/java",
+          "generated/jni"
+        ]
+      } else {
+        java.srcDirs += ["src/oldarch"]
       }
     }
   }
@@ -116,7 +120,7 @@ dependencies {
 if (isNewArchitectureEnabled()) {
   react {
     jsRootDir = file("../src/")
-    libraryName = "DeviceBrightnessNew"
-    codegenJavaPackageName = "com.devicebrightnessnew"
+    libraryName = "ReactNativeDeviceBrightness"
+    codegenJavaPackageName = "com.jiroscripts.reactnativedevicebrightness"
   }
 }

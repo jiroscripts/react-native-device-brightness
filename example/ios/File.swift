@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  DeviceBrightnessNewExample
+//  ReactNativeDeviceBrightnessExample
 //
 
 import Foundation

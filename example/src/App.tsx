@@ -1,51 +1,41 @@
-import { useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
 import {
-  setBrightness,
   getBrightness,
   resetBrightness,
-} from 'react-native-device-brightness-new';
+  setBrightness,
+} from '@jiroscripts/react-native-device-brightness';
 
 export default function App() {
-  const [brightness, setBrightnessState] = useState(0);
+  const [currentBrightness, setCurrentBrightness] = useState<number>();
 
-  const changeBrightness = async () => {
-    try {
-      const newBrightness = Math.random();
-      await setBrightness(newBrightness);
-      setBrightnessState(newBrightness);
-    } catch (error) {
-      console.error('Error changing brightness:', error);
-    }
-  };
+  useEffect(() => {
+    getBrightness().then(setCurrentBrightness);
+  }, []);
 
-  const fetchBrightness = async () => {
-    try {
-      const currentBrightness = await getBrightness();
-      setBrightnessState(currentBrightness);
-    } catch (error) {
-      console.error('Error fetching brightness:', error);
-    }
-  };
-
-  const resetBrightnessLevel = async () => {
-    try {
-      await resetBrightness();
-    } catch (error) {
-      console.error('Error resetting brightness:', error);
-    }
-  };
+  function _setFullBrightness() {
+    return setBrightness(0.5);
+  }
 
   return (
     <View style={styles.container}>
-      <Text>
-        Current Brightness:{' '}
-        {brightness !== null ? brightness.toFixed(2) : 'System Default'}
-      </Text>
+      <View style={styles.buttons}>
+        <Pressable
+          style={styles.button}
+          onPress={() => _setFullBrightness().then(setCurrentBrightness)}
+        >
+          <Text>Set full brightness</Text>
+        </Pressable>
 
-      <Button title="Change Brightness" onPress={changeBrightness} />
-      <Button title="Get Brightness" onPress={fetchBrightness} />
-      <Button title="Reset Brightness" onPress={resetBrightnessLevel} />
+        <Pressable
+          style={styles.button}
+          onPress={() => resetBrightness().then(setCurrentBrightness)}
+        >
+          <Text>Reset brightness</Text>
+        </Pressable>
+      </View>
+
+      <Text>Current brightness: {currentBrightness}</Text>
     </View>
   );
 }
@@ -55,5 +45,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    rowGap: 32,
+  },
+  buttons: {
+    rowGap: 16,
+  },
+  button: {
+    padding: 8,
+    backgroundColor: 'grey',
+    alignItems: 'center',
   },
 });
